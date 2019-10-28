@@ -54,6 +54,8 @@ cc.Class({
         this.updateCountdown()
         // 每次进入界面自动回滚到顶部
         this.content.parent.parent.getComponent(cc.ScrollView).scrollToTop()
+        // 计算兑换卷的张数
+        this.calculateExchangeCount()
         // 刷新货币
         this.updateCurrency()
     },
@@ -64,17 +66,19 @@ cc.Class({
         // 钻石
         this.currency.PathChild('logo_diam/val', cc.Label).string = `${player.diam}`
         // 兑换卷
-        this.currency.PathChild('logo_exch/val', cc.Label).string = `${this.getExchangeCount()}`
+        this.currency.PathChild('logo_exch/val', cc.Label).string = `${this.exchangeCount}`
     },
 
-    getExchangeCount: function () {
+    calculateExchangeCount: function () {
+        this.exchangeIdx = -1
+        this.exchangeCount = 0
         for (var i = 0; i < player.backpack.length; i++) {
-            if (player.backpack[i].id == 1008) {
+            if (player.backpack[i].id == 2100) {
                 this.exchangeIdx = i
-                return player.backpack[i].count
+                this.exchangeCount = player.backpack[i].count
+                break
             }
         }
-        return 0
     },
 
     updateShop: function () {
@@ -160,10 +164,11 @@ cc.Class({
                     }
                     player.diam -= prop.consumeValue
                 } else if (prop.consumeType == CoinType.Exchange) {
-                    if (this.getExchangeCount() - prop.consumeValue < 0) {
+                    if (this.exchangeCount - prop.consumeValue < 0) {
                         UiMgr.show('MsgBoxAutoHidePanel', '兑换卷不足')
                         return
                     }
+                    this.exchangeCount -= prop.consumeValue
                     wlgj.propCtrl.useProp(this.exchangeIdx, prop.consumeValue)
                 }
                 // 放进背包
