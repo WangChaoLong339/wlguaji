@@ -153,19 +153,19 @@ cc.Class({
                 // 扣钱
                 if (prop.consumeType == CoinType.Coin) {
                     if (player.coin - prop.consumeValue < 0) {
-                        UiMgr.show('MsgBoxAutoHidePanel', '金币不足')
+                        UiMgr.show('MsgBoxAutoHidePanel', '[金币]不足')
                         return
                     }
                     player.coin -= prop.consumeValue
                 } else if (prop.consumeType == CoinType.Diam) {
                     if (player.diam - prop.consumeValue < 0) {
-                        UiMgr.show('MsgBoxAutoHidePanel', '钻石不足')
+                        UiMgr.show('MsgBoxAutoHidePanel', '[钻石]不足')
                         return
                     }
                     player.diam -= prop.consumeValue
                 } else if (prop.consumeType == CoinType.Exchange) {
                     if (this.exchangeCount - prop.consumeValue < 0) {
-                        UiMgr.show('MsgBoxAutoHidePanel', '兑换卷不足')
+                        UiMgr.show('MsgBoxAutoHidePanel', '[装备兑换卷]不足')
                         return
                     }
                     this.exchangeCount -= prop.consumeValue
