@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "8e921a4e-3588-43de-a389-579e0e537262",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "logo_bao_xiang": {
+      "ver": "1.0.3",
+      "uuid": "88b5e514-406f-42d1-ba86-0913e6cd7493",
+      "rawTextureUuid": "8e921a4e-3588-43de-a389-579e0e537262",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -2,
+      "offsetY": 2.5,
+      "trimX": 34,
+      "trimY": 30,
+      "width": 93,
+      "height": 87,
+      "rawWidth": 165,
+      "rawHeight": 152,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

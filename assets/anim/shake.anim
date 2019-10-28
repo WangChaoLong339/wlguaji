@@ -1,0 +1,87 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "shake",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 3.45,
+  "sample": 60,
+  "speed": 5,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "rotation": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 0.18333333333333332,
+          "value": -3
+        },
+        {
+          "frame": 0.38333333333333336,
+          "value": 0
+        },
+        {
+          "frame": 0.6,
+          "value": 3
+        },
+        {
+          "frame": 0.8166666666666667,
+          "value": 0
+        },
+        {
+          "frame": 1.0333333333333334,
+          "value": -3
+        },
+        {
+          "frame": 1.25,
+          "value": 0
+        },
+        {
+          "frame": 1.45,
+          "value": 3
+        },
+        {
+          "frame": 1.65,
+          "value": 0
+        }
+      ],
+      "scale": [
+        {
+          "frame": 0,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "frame": 1.65,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "frame": 2.9166666666666665,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1.05,
+            "y": 1.05
+          }
+        },
+        {
+          "frame": 3.45,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1,
+            "y": 1
+          }
+        }
+      ]
+    }
+  },
+  "events": []
+}
