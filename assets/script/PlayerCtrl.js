@@ -7,7 +7,6 @@ cc.Class({
     onLoad: function () {
         // 战斗力公式 = (攻击 + 防御) * 10 + 血量 * 2 + (暴击率 + 闪避率) * 5 + 暴击 + 闪避
         // 升级公式 = parseInt(((Math.pow(lv - 1, 3) + 60) / 5 * ((lv - 1) * 2 + 60) + 50) / 50) * 50
-
         this.model = {}
 
         let player = GetLocalStorage("WLGJ_PLAYER")
