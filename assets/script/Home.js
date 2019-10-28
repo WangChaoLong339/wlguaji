@@ -6,10 +6,19 @@ cc.Class({
 
     onLoad: function () {
         RegisterGlobal("wlgj", this)
-        // 首次登陆赠送金币金额
-        this.beginRewardCoin = 500000
-        // 首次登陆赠送钻石金额
-        this.beginRewardDiam = 1000
+        // 首次登陆的奖品
+        this.firstLoginReward = {
+            coin: 500000,
+            diam: 1000,
+            prop: [
+                { id: 5000, count: 1 },
+                { id: 5001, count: 1 },
+                { id: 5002, count: 1 },
+                { id: 5003, count: 1 },
+                { id: 5004, count: 1 },
+                { id: 5005, count: 1 },
+            ],
+        }
         //prefab管理
         window.UiMgr = this.node.PathChild("UiPanelRoot", "UiMgr")
 
@@ -38,10 +47,10 @@ cc.Class({
     btnBeginReward: function () {
         UiMgr.show('MsgBoxPanel', {
             title: '系统提示',
-            val: `首次登陆游戏,赠送${this.beginRewardCoin}金币,${this.beginRewardDiam}钻石`,
+            val: `首次登陆游戏,赠送${this.firstLoginReward.coin}金币,${this.firstLoginReward.diam}钻石`,
             btn1: function () {
-                player.coin += this.beginRewardCoin
-                player.diam += this.beginRewardDiam
+                player.coin += this.firstLoginReward.coin
+                player.diam += this.firstLoginReward.diam
                 // 更新玩家主页信息
                 wlgj.playerCtrl.show()
                 this.node.PathChild("BeginReward").active = false

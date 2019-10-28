@@ -32,6 +32,18 @@ cc.Class({
         this.typeToTips[Type.Spec] = '装备'
         this.typeToTips[Type.Wing] = '装备'
         this.typeToTips[Type.Cut] = '装备'
+        // 一键回收过滤列表
+        this.oneKryFilter = [
+            1000,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1008,
+            2100,
+        ]
     },
 
     createCell: function () {
@@ -165,20 +177,28 @@ cc.Class({
     },
 
     btnOnekeyRecover: function () {
-        for (var i = 0; i < player.backpack.length; i++) {
-            let prop = player.backpack[i]
-            if (IsEmpty(prop) ||                                                    // 空格子
-                (prop.type == Type.Drug && !this.recoverLimit.drug) ||              // 不回收消耗类
-                (prop.type == Type.Mat && !this.recoverLimit.mat) ||                // 不回收材料类
-                (prop.type == Type.Equip && prop.lv > this.recoverLimit.equip)) {   // 大于回收等级
-                continue
-            }
-            wlgj.propCtrl.sellProp(i, player.backpack[i].count)
-        }
-        // 刷新背包
-        this.show()
-        // 储存到本地 TODO 后期需要上传服务器
-        SetLocalStorage("WLGJ_PLAYER", player)
+        UiMgr.show('MsgBoxPanel', {
+            title: '注意',
+            val: '一键回收将自动回收设置中勾选的道具',
+            btn1: function () {
+                for (var i = 0; i < player.backpack.length; i++) {
+                    let prop = player.backpack[i]
+                    if (IsEmpty(prop) ||                                                    // 空格子
+                        this.oneKryFilter.indexOf(prop.id) != -1 ||                         // 需要过滤
+                        prop.grade == Grade.Red ||                                          // 红色品质道具
+                        (prop.type == Type.Drug && !this.recoverLimit.drug) ||              // 消耗类
+                        (prop.type == Type.Mat && !this.recoverLimit.mat) ||                // 材料类
+                        (prop.type == Type.Equip && prop.lv > this.recoverLimit.equip)) {   // 大于回收等级
+                        continue
+                    }
+                    wlgj.propCtrl.sellProp(i, player.backpack[i].count)
+                }
+                // 刷新背包
+                this.show()
+                // 储存到本地 TODO 后期需要上传服务器
+                SetLocalStorage("WLGJ_PLAYER", player)
+            }.bind(this)
+        })
     },
 
     btnRecover: function () {

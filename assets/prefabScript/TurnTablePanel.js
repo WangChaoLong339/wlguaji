@@ -56,31 +56,30 @@ cc.Class({
         // 根据当前等级来判断阶段
         let stage = parseInt(player.lv / 100)
         /* 
-        消耗(4):252/1000 
-        材料(5):745/1000 
-        特殊(1):1/1000 
-        翅膀(1):1/1000 
-        诅咒(1):1/1000
+        消耗(4):394/1000 
+        材料(5):600/1000 
+        特殊(1):2/1000 
+        翅膀(1):2/1000 
+        诅咒(1):2/1000
         */
-        // TODO 目前只有等级丹是做了动态变化的
         this.showList = []
         // 添加 消耗物品
         this.showList.push({ id: `100${stage}`, value: 70, type: Type.Drug, count: 1 })
         this.showList.push({ id: `100${stage}`, value: 30, type: Type.Drug, count: 6 - stage })
-        this.showList.push({ id: `1007`, value: 150, type: Type.Drug, count: 5 * Math.pow(2, stage) })
-        this.showList.push({ id: `1008`, value: 2, type: Type.Drug, count: 1 })
+        this.showList.push({ id: `1007`, value: 270, type: Type.Drug, count: 5 * Math.pow(2, stage) })
+        this.showList.push({ id: `1008`, value: 24, type: Type.Drug, count: 1 })
         // 添加 材料物品
-        this.showList.push({ id: `200${stage}`, value: 400, type: Type.Mat, count: 1 })
-        this.showList.push({ id: `200${stage}`, value: 200, type: Type.Mat, count: 2 })
+        this.showList.push({ id: `200${stage}`, value: 200, type: Type.Mat, count: 1 })
+        this.showList.push({ id: `200${stage}`, value: 150, type: Type.Mat, count: 2 })
         this.showList.push({ id: `200${stage}`, value: 100, type: Type.Mat, count: 3 })
-        this.showList.push({ id: `200${stage}`, value: 43, type: Type.Mat, count: 5 })
-        this.showList.push({ id: `2100`, value: 2, type: Type.Mat, count: 5 })
+        this.showList.push({ id: `200${stage}`, value: 100, type: Type.Mat, count: 5 })
+        this.showList.push({ id: `2100`, value: 50, type: Type.Mat, count: 3 })
         // 添加 特殊物品
-        this.showList.push({ id: `700${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 1, type: Type.Spec, count: 1 })
+        this.showList.push({ id: `700${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 2, type: Type.Spec, count: 1 })
         // 添加 翅膀物品
-        this.showList.push({ id: `800${stage > 0 ? stage - 1 : stage}`, value: 1, type: Type.Wing, count: 1 })
+        this.showList.push({ id: `800${stage > 0 ? stage - 1 : stage}`, value: 2, type: Type.Wing, count: 1 })
         // 添加 诅咒物品
-        this.showList.push({ id: `900${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 1, type: Type.Cut, count: 1 })
+        this.showList.push({ id: `900${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 2, type: Type.Cut, count: 1 })
 
         // 乱序
         this.showList.sort(function (a, b) { return Math.random() > 0.5 ? -1 : 1 })
@@ -94,7 +93,7 @@ cc.Class({
             score += this.showList[i].value
         }
         if (score != 1000) {
-            cc.error(`cfg score${score} err`)
+            cc.error(`cfg score(${score}) err`)
         }
     },
 
