@@ -187,6 +187,9 @@ cc.Class({
                         this.oneKryFilter.indexOf(prop.id) != -1 ||                         // 需要过滤
                         prop.grade == Grade.Red ||                                          // 红色品质道具
                         (prop.type == Type.Drug && !this.recoverLimit.drug) ||              // 消耗类
+                        prop.type == Type.Spec ||                                           // 特殊类
+                        prop.type == Type.Wing ||                                           // 翅膀类
+                        prop.type == Type.Cut ||                                            // 诅咒类
                         (prop.type == Type.Mat && !this.recoverLimit.mat) ||                // 材料类
                         (prop.type == Type.Equip && prop.lv > this.recoverLimit.equip)) {   // 大于回收等级
                         continue
