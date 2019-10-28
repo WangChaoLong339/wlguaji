@@ -84,31 +84,26 @@ cc.Class({
 
     useProp: function (i, count, cb) {
         let prop = player.backpack[i]
+        // 先从背包移除
+        if (prop.count == count) {
+            player.backpack.splice(i, 1, {})
+        } else {
+            player.backpack[i].count -= count
+        }
+
         if (prop.type == Type.Drug) {
-            // 处理背包
-            if (prop.count == count) {
-                player.backpack.splice(i, 1, {})
-            } else {
-                player.backpack[i].count -= count
-            }
-            // 消耗效果
             this.drugEffect(prop, count, cb)
         } else if (prop.type == Type.Mat) {
-            // 处理背包
-            if (prop.count == count) {
-                player.backpack.splice(i, 1, {})
-            } else {
-                player.backpack[i].count -= count
-            }
         } else if (prop.type == Type.Equip || prop.type == Type.Spec || prop.type == Type.Wing || prop.type == Type.Cut) {
             // 换下来同部位的装备放进背包里面
-            player.backpack.splice(i, 1, player.equip[prop.place])
-
+            player.backpack[i] = player.equip[prop.place]
             // 穿上选择的装备
             player.equip[prop.place] = prop
-
             // 重新计算属性
             wlgj.playerCtrl.calculate()
+            if (cb) {
+                cb()
+            }
         }
     },
 

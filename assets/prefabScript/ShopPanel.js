@@ -70,6 +70,7 @@ cc.Class({
     getExchangeCount: function () {
         for (var i = 0; i < player.backpack.length; i++) {
             if (player.backpack[i].id == 1008) {
+                this.exchangeIdx = i
                 return player.backpack[i].count
             }
         }
@@ -79,6 +80,7 @@ cc.Class({
     updateShop: function () {
         // 一般不超过20件商品
         this.waresList = [
+            // 消耗
             { id: 1000, consumeType: CoinType.Coin, consumeValue: 1000, purchased: false },
             { id: 1001, consumeType: CoinType.Coin, consumeValue: 2000, purchased: false },
             { id: 1002, consumeType: CoinType.Coin, consumeValue: 3000, purchased: false },
@@ -86,14 +88,23 @@ cc.Class({
             { id: 1004, consumeType: CoinType.Diam, consumeValue: 500, purchased: false },
             { id: 1005, consumeType: CoinType.Diam, consumeValue: 1000, purchased: false },
             { id: 1006, consumeType: CoinType.Diam, consumeValue: 2000, purchased: false },
+            // 翅膀
             { id: 8005, consumeType: CoinType.Diam, consumeValue: 35888, purchased: false },
+            // 诅咒
             { id: 9003, consumeType: CoinType.Diam, consumeValue: 38888, purchased: false },
+            // 装备
             { id: 5100, consumeType: CoinType.Exchange, consumeValue: 100, purchased: false },
             { id: 5101, consumeType: CoinType.Exchange, consumeValue: 80, purchased: false },
             { id: 5102, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
             { id: 5103, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
             { id: 5104, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
             { id: 5105, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
+            { id: 5240, consumeType: CoinType.Exchange, consumeValue: 1000, purchased: false, },
+            { id: 5241, consumeType: CoinType.Exchange, consumeValue: 800, purchased: false, },
+            { id: 5242, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5243, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5244, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5245, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
         ]
         // 显示商品
         this.showWares()
@@ -149,11 +160,11 @@ cc.Class({
                     }
                     player.diam -= prop.consumeValue
                 } else if (prop.consumeType == CoinType.Exchange) {
-                    if (player.diam - prop.consumeValue < 0) {
+                    if (this.getExchangeCount() - prop.consumeValue < 0) {
                         UiMgr.show('MsgBoxAutoHidePanel', '兑换卷不足')
                         return
                     }
-                    player.diam -= prop.consumeValue
+                    wlgj.propCtrl.useProp(this.exchangeIdx, prop.consumeValue)
                 }
                 // 放进背包
                 wlgj.propCtrl.pushBackpack(Clone(PropList[prop.id]))
