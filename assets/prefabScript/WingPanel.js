@@ -65,6 +65,7 @@ cc.Class({
         this.wingRoot.PathChild('wingName', cc.Label).string = `${this.wingInfo[player.wing.lv].name}`
         SetSpriteFrame(player.wing.lv == 0 ? null : 'wing/' + player.wing.lv, this.wingRoot.PathChild('lv', cc.Sprite))
         SetSpriteFrame(player.wing.lv == 0 ? null : 'wing/jiechibang' + player.wing.lv, this.wingRoot.PathChild('wing', cc.Sprite))
+        cc.log(111)
         this.wingRoot.PathChild('bottom/luckyValueBg/luckyValueFg').width = (player.wing.luckyVal / player.wing.maxLuckyVal) * this.wingRoot.PathChild('bottom/luckyValueBg').width
         this.wingRoot.PathChild('bottom/luckyValueBg/val', cc.Label).string = `${player.wing.luckyVal}/${player.wing.maxLuckyVal}`
     },
