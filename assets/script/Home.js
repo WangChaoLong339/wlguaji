@@ -92,4 +92,8 @@ cc.Class({
     btnCompound: function () {
         UiMgr.show('CompoundPanel')
     },
+
+    btnFeather: function () {
+        UiMgr.show('WingPanel')
+    },
 });

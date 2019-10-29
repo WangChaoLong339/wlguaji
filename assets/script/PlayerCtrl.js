@@ -36,7 +36,7 @@ cc.Class({
             /* 玩家头像 */head: 1,
             /* 玩家黄金 */coin: 0,
             /* 玩家钻石 */diam: 0,
-            /* 翅膀等级 */wing: { lv: 0, luckyVal: 0, maxLuckyVal: 100 },
+            /* 翅膀等级 */wing: { lv: 3, luckyVal: 200, maxLuckyVal: 1000, val: 30 },
             /* vipLv   */vip: 3,
             /* 玩家等级 */lv: 1,
             /* 封顶等级 */maxlv: 700,

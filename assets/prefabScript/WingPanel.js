@@ -4,6 +4,7 @@ cc.Class({
     properties: {
         wingRoot: cc.Node,
         feather: cc.Node,
+        bottom: cc.Node,
     },
 
     onLoad: function () {
@@ -65,9 +66,9 @@ cc.Class({
         this.wingRoot.PathChild('wingName', cc.Label).string = `${this.wingInfo[player.wing.lv].name}`
         SetSpriteFrame(player.wing.lv == 0 ? null : 'wing/' + player.wing.lv, this.wingRoot.PathChild('lv', cc.Sprite))
         SetSpriteFrame(player.wing.lv == 0 ? null : 'wing/jiechibang' + player.wing.lv, this.wingRoot.PathChild('wing', cc.Sprite))
-        cc.log(111)
-        this.wingRoot.PathChild('bottom/luckyValueBg/luckyValueFg').width = (player.wing.luckyVal / player.wing.maxLuckyVal) * this.wingRoot.PathChild('bottom/luckyValueBg').width
-        this.wingRoot.PathChild('bottom/luckyValueBg/val', cc.Label).string = `${player.wing.luckyVal}/${player.wing.maxLuckyVal}`
+        this.bottom.PathChild('luckyValueBg/luckyValueFg').width = (player.wing.luckyVal / player.wing.maxLuckyVal) * this.bottom.PathChild('bottom/luckyValueBg').width
+        this.bottom.PathChild('luckyValueBg/val', cc.Label).string = `${player.wing.luckyVal}/${player.wing.maxLuckyVal}`
+        this.bottom.PathChild('consume/val', cc.Label).string = `${player.wing.val}`
     },
 
     btnForging: function () {
