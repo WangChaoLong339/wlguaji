@@ -75,11 +75,11 @@ cc.Class({
         this.showList.push({ id: `200${stage}`, value: 100, type: Type.Mat, count: 5 })
         this.showList.push({ id: `2100`, value: 50, type: Type.Mat, count: 3 })
         // 添加 特殊物品
-        this.showList.push({ id: `700${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 2, type: Type.Spec, count: 1 })
+        this.showList.push({ id: `700${parseInt((stage - 1) / 2)}`, value: 2, type: Type.Spec, count: 1 })
         // 添加 翅膀物品
         this.showList.push({ id: `800${stage > 0 ? stage - 1 : stage}`, value: 2, type: Type.Wing, count: 1 })
         // 添加 诅咒物品
-        this.showList.push({ id: `900${stage < 3 ? 0 : stage < 5 ? 1 : stage < 7 ? 2 : 3}`, value: 2, type: Type.Cut, count: 1 })
+        this.showList.push({ id: `900${parseInt((stage - 1) / 2)}`, value: 2, type: Type.Cut, count: 1 })
 
         // 乱序
         this.showList.sort(function (a, b) { return Math.random() > 0.5 ? -1 : 1 })
