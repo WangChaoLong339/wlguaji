@@ -107,12 +107,12 @@
       "__id__": 6
     },
     "_id": "",
-    "_opacity": 200,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -241,7 +241,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "0eb10571-65e9-4c62-8050-e2ab979f6bf9"
+      "__uuid__": "f7b0517b-926e-43e0-997b-ee2b33dd4355"
     },
     "_type": 0,
     "_sizeMode": 0,

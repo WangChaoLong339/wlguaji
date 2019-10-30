@@ -51,7 +51,7 @@ cc.Class({
             SetSpriteFrame(`battle/${this.model.select[idx].icon}`, it.PathChild('icon', cc.Sprite))
             // 设置描述
             it.PathChild('name', cc.Label).string = this.model.select[idx].name
-            it.PathChild('name').color = enter ? cc.Color.WHITE : cc.Color.GRAY
+            it.PathChild('name').color = enter ? cc.Color.GREEN : cc.Color.RED
             // 是否属于可点击状态
             it.PathChild('lock').active = !enter
         });
