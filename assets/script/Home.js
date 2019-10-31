@@ -96,4 +96,8 @@ cc.Class({
     btnFeather: function () {
         UiMgr.show('WingPanel')
     },
+
+    btnCurse: function () {
+        UiMgr.show('CursePanel')
+    },
 });

@@ -18,6 +18,7 @@ cc.Class({
                 'CompoundPanel',
                 'ShopPanel',
                 'WingPanel',
+                'CursePanel',
                 'TurnTablePanel',
                 'StageSelectPanel',
                 'CombatPanel',
