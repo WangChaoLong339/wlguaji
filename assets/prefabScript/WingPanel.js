@@ -19,16 +19,9 @@ cc.Class({
             { lv: 8, name: '帝王意志', maxLuckyVal: 7700, totalConsume: 4620, consume: 60, maxCount: 77, },
             { lv: 9, name: '灼莹祭天', maxLuckyVal: 12500, totalConsume: 10000, consume: 80, maxCount: 125, },
             { lv: 10, name: '冥域冰封', maxLuckyVal: 13000, totalConsume: 11700, consume: 90, maxCount: 130, },
-            /*
-                { lv: 11, name: '流光月蝉'，, maxLuckyVal: 18960, consume: 3,  },
-                { lv: 12, name: '流光月蝉'，, maxLuckyVal: 26320, consume: 3,  },
-                { lv: 13, name: '流光月蝉'，, maxLuckyVal: 35520, consume: 3,  },
-                { lv: 14, name: '流光月蝉'，, maxLuckyVal: 44640, consume: 3,  },
-                { lv: 15, name: '流光月蝉'，, maxLuckyVal: 50, consume: 3,  },
-            */
         ]
 
-        //
+        // 翅膀动画
         this.wingRoot.PathChild('wing').runAction(cc.repeatForever(cc.sequence(
             cc.moveBy(0.8, 0, 30),
             cc.moveBy(0.8, 0, -30),

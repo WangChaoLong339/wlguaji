@@ -57,30 +57,23 @@ cc.Class({
         let stage = parseInt(player.lv / 100)
         /* 
         消耗(4):394/1000 
-        材料(5):600/1000 
-        特殊(1):2/1000 
-        翅膀(1):2/1000 
-        诅咒(1):2/1000
+        材料(6):600/1000 
         */
         this.showList = []
         // 添加 消耗物品
-        this.showList.push({ id: `100${stage}`, value: 70, type: Type.Drug, count: 1 })
-        this.showList.push({ id: `100${stage}`, value: 30, type: Type.Drug, count: 6 - stage })
-        this.showList.push({ id: `1007`, value: 270, type: Type.Drug, count: 5 * Math.pow(2, stage) })
-        this.showList.push({ id: `1008`, value: 24, type: Type.Drug, count: 1 })
+        this.showList.push({ id: `100${stage}`, value: 100, type: PropType.Drug, count: 1 })
+        this.showList.push({ id: `100${stage}`, value: 100, type: PropType.Drug, count: 6 - stage })
+        this.showList.push({ id: `1007`, value: 50, type: PropType.Drug, count: 5 * Math.pow(2, stage) })
+        this.showList.push({ id: `1008`, value: 80, type: PropType.Drug, count: 1 })
         // 添加 材料物品
-        this.showList.push({ id: `200${stage}`, value: 200, type: Type.Mat, count: 1 })
-        this.showList.push({ id: `200${stage}`, value: 150, type: Type.Mat, count: 2 })
-        this.showList.push({ id: `200${stage}`, value: 100, type: Type.Mat, count: 3 })
-        this.showList.push({ id: `200${stage}`, value: 100, type: Type.Mat, count: 5 })
-        this.showList.push({ id: `2100`, value: 50, type: Type.Mat, count: 3 })
-        // 添加 特殊物品
-        this.showList.push({ id: `700${parseInt((stage - 1) / 2)}`, value: 2, type: Type.Spec, count: 1 })
-        // 添加 翅膀物品
-        this.showList.push({ id: `800${stage > 0 ? stage - 1 : stage}`, value: 2, type: Type.Wing, count: 1 })
-        // 添加 诅咒物品
-        this.showList.push({ id: `900${parseInt((stage - 1) / 2)}`, value: 2, type: Type.Cut, count: 1 })
-
+        this.showList.push({ id: `200${stage}`, value: 100, type: PropType.Mat, count: 1 })
+        this.showList.push({ id: `200${stage}`, value: 100, type: PropType.Mat, count: 2 })
+        this.showList.push({ id: `200${stage}`, value: 100, type: PropType.Mat, count: 3 })
+        this.showList.push({ id: `200${stage}`, value: 50, type: PropType.Mat, count: 5 })
+        this.showList.push({ id: `2100`, value: 80, type: PropType.Mat, count: 1 })
+        this.showList.push({ id: `2100`, value: 80, type: PropType.Mat, count: 3 })
+        this.showList.push({ id: `2101`, value: 80, type: PropType.Mat, count: (stage + 1) * 3 })
+        this.showList.push({ id: `2101`, value: 80, type: PropType.Mat, count: (stage + 2) * 5 })
         // 乱序
         this.showList.sort(function (a, b) { return Math.random() > 0.5 ? -1 : 1 })
         // 记录一个下标
@@ -91,6 +84,9 @@ cc.Class({
         let score = 0
         for (var i = 0; i < this.showList.length; i++) {
             score += this.showList[i].value
+        }
+        if (this.showList.length != 12) {
+            cc.error(`list.length(${this.showList.length}) err`)
         }
         if (score != 1000) {
             cc.error(`cfg score(${score}) err`)
@@ -273,8 +269,8 @@ cc.Class({
     },
 
     btnOne: function () {
-        if (player.coin - this.consume.one < 0) {
-            UiMgr.show('MsgBoxAutoHidePanel', '剩余的金币不足')
+        if (player.diam - this.consume.one < 0) {
+            UiMgr.show('MsgBoxAutoHidePanel', '钻石不足')
             return
         }
         // 开启遮罩 防止一直点击
@@ -286,7 +282,7 @@ cc.Class({
         // 播放随机动画
         this.randomAnimation(count)
         // 扣钱
-        player.coin -= this.consume.one
+        player.diam -= this.consume.one
         // 直接放进背包 避免玩家突然断开不能领奖的现象
         this.pushBackpack()
         // 刷新玩家界面
@@ -294,8 +290,8 @@ cc.Class({
     },
 
     btnTen: function () {
-        if (player.coin - this.consume.ten < 0) {
-            UiMgr.show('MsgBoxAutoHidePanel', '剩余的金币不足')
+        if (player.diam - this.consume.ten < 0) {
+            UiMgr.show('MsgBoxAutoHidePanel', '钻石不足')
             return
         }
         // 显示十连抽次数
@@ -316,7 +312,7 @@ cc.Class({
         // 播放随机动画
         this.randomTenAnimation(indexs)
         // 扣钱
-        player.coin -= this.consume.ten
+        player.diam -= this.consume.ten
         // 直接放进背包 避免玩家突然断开不能领奖的现象
         this.pushBackpack()
         // 刷新玩家界面

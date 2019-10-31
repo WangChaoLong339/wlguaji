@@ -50,10 +50,8 @@ cc.Class({
             if (IsEmpty(prop)) {
                 continue
             }
-            if (prop.type == Type.Equip ||
-                prop.type == Type.Spec ||
-                prop.type == Type.Wing ||
-                prop.type == Type.Cut) {
+            if (prop.type == PropType.Equip ||
+                prop.type == PropType.Spec) {
                 this.equipIdx.push(i)
             }
         }
@@ -100,7 +98,7 @@ cc.Class({
                 UiMgr.show('MsgBoxAutoHidePanel', '必须是同品质的物品')
                 return false
             }
-            if (player.backpack[this.equipIdx[this.model.selected[i]]].type == Type.Equip) {
+            if (player.backpack[this.equipIdx[this.model.selected[i]]].type == PropType.Equip) {
                 if (player.backpack[this.equipIdx[this.model.selected[i]]].place != player.backpack[this.equipIdx[this.model.selected[0]]].place) {
                     UiMgr.show('MsgBoxAutoHidePanel', '必须是同样的部件才能合成')
                     return false

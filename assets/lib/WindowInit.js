@@ -71,16 +71,8 @@ cc.Class({
                     return '闪避'
                 case 'dodge_rate':
                     return '闪避率'
-                case 'cut':
-                    return '诅咒伤害'
-                case 'cut_rate':
-                    return '触发几率'
                 case 'all_rate':
                     return '全属性提升'
-                case 'lucky_rate':
-                    return '幸运增幅'
-                case 'coin_rate':
-                    return '黄金增幅'
                 case 'def_rate':
                     return '防御增幅'
                 case 'att_rate':

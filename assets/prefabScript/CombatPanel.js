@@ -256,8 +256,8 @@ cc.Class({
         val = (atterProperty.att - deferProperty.def) + Math.ceil((atterProperty.crit_rate - deferProperty.dodge_rate) * Math.abs(atterProperty.crit - deferProperty.dodge))
         // 攻击上下波动 [0.6 - 1.4]
         val = parseInt(Math.ceil(Math.random() * (val * 1.4 - val * 0.6)) + val * 0.6)
-        // 保证最小攻击1hp
-        val = val > 1 ? val : 1
+        // 最小攻击
+        val = val < 0 ? 0 : val
         return { cut: false, val: val }
     },
 
@@ -317,12 +317,12 @@ cc.Class({
     fightReward: function () {
         let r = this.rewardCfg[this.newEnemy.tag]
         // 黄金收益
-        let randomCoin = parseInt((Math.ceil(Math.random() * (r.coin * 1.4 - r.coin * 0.6)) + r.coin * 0.6) * (1 + player.coin_rate / 100))
+        let randomCoin = parseInt((Math.ceil(Math.random() * (r.coin * 1.4 - r.coin * 0.6)) + r.coin * 0.6))
         // 其他列表
         let list = []
         for (var i in r.list) {
             // 幸运掉落物品(Boss是1.2倍爆率)
-            let offsetLucky = 1 + (player.lucky_rate / 100) + (this.newEnemy.id % 10 == 4 ? 0.2 : 0)
+            let offsetLucky = 1 + (this.newEnemy.id % 10 == 4 ? 0.2 : 0)
             if (GetLimiteRandom(0, 100) < r.list[i] * offsetLucky) {
                 list.push(i)
             }

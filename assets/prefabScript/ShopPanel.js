@@ -11,9 +11,9 @@ cc.Class({
     onLoad: function () {
         // 定义后缀名
         this.currencyInfo = {}
-        this.currencyInfo[CoinType.Coin] = { prefix: 'logo_consume_copper', name: '金币' }
-        this.currencyInfo[CoinType.Diam] = { prefix: 'logo_consume_diamonds', name: '钻石' }
-        this.currencyInfo[CoinType.Exchange] = { prefix: 'logo_consume_exchange', name: '装备兑换卷' }
+        this.currencyInfo[CurrencyType.Coin] = { prefix: 'logo_consume_copper', name: '金币' }
+        this.currencyInfo[CurrencyType.Diam] = { prefix: 'logo_consume_diamonds', name: '钻石' }
+        this.currencyInfo[CurrencyType.Exchange] = { prefix: 'logo_consume_exchange', name: '装备兑换卷' }
         // 配置一个刷新时间(s)
         this.loopTime = 600
         // 刷新商品
@@ -85,30 +85,26 @@ cc.Class({
         // 一般不超过20件商品
         this.waresList = [
             // 消耗
-            { id: 1000, consumeType: CoinType.Coin, consumeValue: 1000, purchased: false },
-            { id: 1001, consumeType: CoinType.Coin, consumeValue: 2000, purchased: false },
-            { id: 1002, consumeType: CoinType.Coin, consumeValue: 3000, purchased: false },
-            { id: 1003, consumeType: CoinType.Coin, consumeValue: 3000, purchased: false },
-            { id: 1004, consumeType: CoinType.Diam, consumeValue: 500, purchased: false },
-            { id: 1005, consumeType: CoinType.Diam, consumeValue: 1000, purchased: false },
-            { id: 1006, consumeType: CoinType.Diam, consumeValue: 2000, purchased: false },
-            // 翅膀
-            { id: 8005, consumeType: CoinType.Diam, consumeValue: 35888, purchased: false },
-            // 诅咒
-            { id: 9003, consumeType: CoinType.Diam, consumeValue: 38888, purchased: false },
+            { id: 1000, consumeType: CurrencyType.Coin, consumeValue: 1000, purchased: false },
+            { id: 1001, consumeType: CurrencyType.Coin, consumeValue: 2000, purchased: false },
+            { id: 1002, consumeType: CurrencyType.Coin, consumeValue: 3000, purchased: false },
+            { id: 1003, consumeType: CurrencyType.Coin, consumeValue: 3000, purchased: false },
+            { id: 1004, consumeType: CurrencyType.Diam, consumeValue: 500, purchased: false },
+            { id: 1005, consumeType: CurrencyType.Diam, consumeValue: 1000, purchased: false },
+            { id: 1006, consumeType: CurrencyType.Diam, consumeValue: 2000, purchased: false },
             // 装备
-            { id: 5100, consumeType: CoinType.Exchange, consumeValue: 100, purchased: false },
-            { id: 5101, consumeType: CoinType.Exchange, consumeValue: 80, purchased: false },
-            { id: 5102, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
-            { id: 5103, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
-            { id: 5104, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
-            { id: 5105, consumeType: CoinType.Exchange, consumeValue: 50, purchased: false },
-            { id: 5240, consumeType: CoinType.Exchange, consumeValue: 1000, purchased: false, },
-            { id: 5241, consumeType: CoinType.Exchange, consumeValue: 800, purchased: false, },
-            { id: 5242, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
-            { id: 5243, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
-            { id: 5244, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
-            { id: 5245, consumeType: CoinType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5100, consumeType: CurrencyType.Exchange, consumeValue: 100, purchased: false },
+            { id: 5101, consumeType: CurrencyType.Exchange, consumeValue: 80, purchased: false },
+            { id: 5102, consumeType: CurrencyType.Exchange, consumeValue: 50, purchased: false },
+            { id: 5103, consumeType: CurrencyType.Exchange, consumeValue: 50, purchased: false },
+            { id: 5104, consumeType: CurrencyType.Exchange, consumeValue: 50, purchased: false },
+            { id: 5105, consumeType: CurrencyType.Exchange, consumeValue: 50, purchased: false },
+            { id: 5240, consumeType: CurrencyType.Exchange, consumeValue: 1000, purchased: false, },
+            { id: 5241, consumeType: CurrencyType.Exchange, consumeValue: 800, purchased: false, },
+            { id: 5242, consumeType: CurrencyType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5243, consumeType: CurrencyType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5244, consumeType: CurrencyType.Exchange, consumeValue: 500, purchased: false, },
+            { id: 5245, consumeType: CurrencyType.Exchange, consumeValue: 500, purchased: false, },
         ]
         // 显示商品
         this.showWares()
@@ -133,7 +129,7 @@ cc.Class({
             // 消耗货币金额
             item.PathChild('consumeType/consumeValue', cc.Label).string = `${this.waresList[i].consumeValue}`
             // 
-            item.PathChild('buy/val', cc.Label).string = this.waresList[i].consumeType == CoinType.Exchange ? '兑换' : '购买'
+            item.PathChild('buy/val', cc.Label).string = this.waresList[i].consumeType == CurrencyType.Exchange ? '兑换' : '购买'
             this.content.addChild(item)
         }
     },
@@ -148,22 +144,22 @@ cc.Class({
         let prop = this.waresList[idx]
         UiMgr.show('MsgBoxPanel', {
             title: '系统提示',
-            val: `是否花费${prop.consumeValue}${this.currencyInfo[prop.consumeType].name}${prop.consumeType == CoinType.Exchange ? '兑换' : '购买'}${PropList[prop.id].name}?`,
+            val: `是否花费${prop.consumeValue}${this.currencyInfo[prop.consumeType].name}${prop.consumeType == CurrencyType.Exchange ? '兑换' : '购买'}${PropList[prop.id].name}?`,
             btn1: function () {
                 // 扣钱
-                if (prop.consumeType == CoinType.Coin) {
+                if (prop.consumeType == CurrencyType.Coin) {
                     if (player.coin - prop.consumeValue < 0) {
                         UiMgr.show('MsgBoxAutoHidePanel', '[金币]不足')
                         return
                     }
                     player.coin -= prop.consumeValue
-                } else if (prop.consumeType == CoinType.Diam) {
+                } else if (prop.consumeType == CurrencyType.Diam) {
                     if (player.diam - prop.consumeValue < 0) {
                         UiMgr.show('MsgBoxAutoHidePanel', '[钻石]不足')
                         return
                     }
                     player.diam -= prop.consumeValue
-                } else if (prop.consumeType == CoinType.Exchange) {
+                } else if (prop.consumeType == CurrencyType.Exchange) {
                     if (this.exchangeCount - prop.consumeValue < 0) {
                         UiMgr.show('MsgBoxAutoHidePanel', '[装备兑换卷]不足')
                         return

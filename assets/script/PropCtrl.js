@@ -91,10 +91,10 @@ cc.Class({
             player.backpack[i].count -= count
         }
 
-        if (prop.type == Type.Drug) {
+        if (prop.type == PropType.Drug) {
             this.drugEffect(prop, count, cb)
-        } else if (prop.type == Type.Mat) {
-        } else if (prop.type == Type.Equip || prop.type == Type.Spec || prop.type == Type.Wing || prop.type == Type.Cut) {
+        } else if (prop.type == PropType.Mat) {
+        } else if (prop.type == PropType.Equip || prop.type == PropType.Spec) {
             // 换下来同部位的装备放进背包里面
             player.backpack[i] = player.equip[prop.place]
             // 穿上选择的装备
@@ -109,8 +109,8 @@ cc.Class({
 
     pushBackpack: function (prop) {
         let exist = false
-        if (prop.type == Type.Drug ||
-            prop.type == Type.Mat) {
+        if (prop.type == PropType.Drug ||
+            prop.type == PropType.Mat) {
             for (var i = 0; i < player.backpack.length; i++) {
                 if (player.backpack[i].id == prop.id) {
                     exist = true
@@ -154,8 +154,6 @@ cc.Class({
         }
         // 随机装备
         if (prop.effect.ramdonEquip) {
-            // 随机count次
-            //for (var i = 0; i < count; i++) {
             let temp = this.allList[GetLimiteRandom(0, 1000)]
             let id = null
             if (GetLimiteRandom(0, 1000) < this.cfg[temp.idx].detail.jianJia) {
@@ -168,7 +166,6 @@ cc.Class({
             if (cb) {
                 cb(id)
             }
-            //}
         }
     },
 

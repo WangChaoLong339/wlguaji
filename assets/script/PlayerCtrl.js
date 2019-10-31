@@ -43,10 +43,6 @@ cc.Class({
             /* 背包列表 */backpack: [],//[Clone(PropList[1000]), Clone(PropList[1001]), Clone(PropList[5000]), Clone(PropList[5001]), Clone(PropList[5002]), Clone(PropList[5003]), Clone(PropList[5004]), Clone(PropList[5005])],
             /* 穿戴装备 */equip: { 0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {} },
             /* 及时属性 */property: { att: 10, def: 5, hp: 100, cut: 0, crit: 0, crit_rate: 0, dodge: 0, dodge_rate: 0, },
-            /* 幸运增幅 */lucky_rate: 0,
-            /* 黄金增幅 */coin_rate: 0,
-            /* 防御增幅 */def_rate: 0,
-            /* 攻击增幅 */att_rate: 0,
             /* 战 斗 力 */battle: 0,
             /* 生命储备 */storageHp: 0,
         }
@@ -81,9 +77,6 @@ cc.Class({
         // 装备属性附加
         this.plusEquiproperty()
 
-        // 攻防增幅
-        this.tryAttRateAndDefRate()
-
         // 记录一个最大血量
         player.property.maxHp = player.property.hp
 
@@ -99,22 +92,18 @@ cc.Class({
 
     playerPropertyClean: function () {
         player.property = { att: player.lv * 10, def: player.lv * 5, hp: player.lv * 100, cut: 0, cut_rate: 0, crit: 0, crit_rate: 0, dodge: 0, dodge_rate: 0, }
-        player.lucky_rate = 0
-        player.coin_rate = 0
-        player.def_rate = 0
-        player.att_rate = 0
         player.battle = 0
     },
 
     plusEquiproperty: function () {
         for (var i in player.equip) {
             // 普通部件
-            if (parseInt(i) == Place.Arms ||
-                parseInt(i) == Place.Clothe ||
-                parseInt(i) == Place.Cap ||
-                parseInt(i) == Place.Necklace ||
-                parseInt(i) == Place.Ring ||
-                parseInt(i) == Place.Boots) {
+            if (parseInt(i) == EquipPlace.Arms ||
+                parseInt(i) == EquipPlace.Clothe ||
+                parseInt(i) == EquipPlace.Cap ||
+                parseInt(i) == EquipPlace.Necklace ||
+                parseInt(i) == EquipPlace.Ring ||
+                parseInt(i) == EquipPlace.Boots) {
                 for (var j in player.equip[i].effect) {
                     player.property[j] += player.equip[i].effect[j]
                 }
@@ -122,29 +111,11 @@ cc.Class({
             // 穿上了相应的装备
             if (player.equip[i].effect) {
                 // 特殊 8
-                if (parseInt(i) == Place.Spec) {
+                if (parseInt(i) == EquipPlace.Spec) {
                     for (var j in player.equip[i].effect)
                         player[j] = player.equip[i].effect[j]
                 }
-                // 翅膀
-                if (parseInt(i) == Place.Wing) {
-                    for (var j in player.property) {
-                        player.property[j] += parseInt(Math.ceil(player.property[j] * player.equip[i].effect.all_rate / 100))
-                    }
-                }
-                // 诅咒
-                if (parseInt(i) == Place.Cut) {
-                    player.property.cut = player.equip[i].effect.cut
-                    player.property.cut_rate = player.equip[i].effect.cut_rate
-                }
             }
         }
-    },
-
-    tryAttRateAndDefRate: function () {
-        // 攻击增幅
-        player.property.att += parseInt(Math.ceil(player.att_rate / 100 * player.property.att))
-        // 防御增幅
-        player.property.def += parseInt(Math.ceil(player.def_rate / 100 * player.property.def))
     },
 });

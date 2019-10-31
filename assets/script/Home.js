@@ -9,7 +9,7 @@ cc.Class({
         // 首次登陆的奖品
         this.firstLoginReward = {
             coin: 500000,
-            diam: 1000,
+            diam: 1000000,
             prop: [
                 { id: 5000, count: 1 },
                 { id: 5001, count: 1 },

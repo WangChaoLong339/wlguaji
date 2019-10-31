@@ -26,12 +26,10 @@ cc.Class({
         this.inChoice = false
         // 类型转提示字符串
         this.typeToTips = {}
-        this.typeToTips[Type.Drug] = '使用'
-        this.typeToTips[Type.Mat] = ''
-        this.typeToTips[Type.Equip] = '装备'
-        this.typeToTips[Type.Spec] = '装备'
-        this.typeToTips[Type.Wing] = '装备'
-        this.typeToTips[Type.Cut] = '装备'
+        this.typeToTips[PropType.Drug] = '使用'
+        this.typeToTips[PropType.Mat] = ''
+        this.typeToTips[PropType.Equip] = '装备'
+        this.typeToTips[PropType.Spec] = '装备'
         // 一键回收过滤列表
         this.oneKryFilter = [
             1000,
@@ -186,12 +184,10 @@ cc.Class({
                     if (IsEmpty(prop) ||                                                    // 空格子
                         this.oneKryFilter.indexOf(prop.id) != -1 ||                         // 需要过滤
                         prop.grade == Grade.Red ||                                          // 红色品质道具
-                        (prop.type == Type.Drug && !this.recoverLimit.drug) ||              // 消耗类
-                        prop.type == Type.Spec ||                                           // 特殊类
-                        prop.type == Type.Wing ||                                           // 翅膀类
-                        prop.type == Type.Cut ||                                            // 诅咒类
-                        (prop.type == Type.Mat && !this.recoverLimit.mat) ||                // 材料类
-                        (prop.type == Type.Equip && prop.lv > this.recoverLimit.equip)) {   // 大于回收等级
+                        (prop.type == PropType.Drug && !this.recoverLimit.drug) ||              // 消耗类
+                        prop.type == PropType.Spec ||                                           // 特殊类
+                        (prop.type == PropType.Mat && !this.recoverLimit.mat) ||                // 材料类
+                        (prop.type == PropType.Equip && prop.lv > this.recoverLimit.equip)) {   // 大于回收等级
                         continue
                     }
                     wlgj.propCtrl.sellProp(i, player.backpack[i].count)
@@ -241,7 +237,7 @@ cc.Class({
             btnInfo: this.typeToTips[prop.type],
             cb: function () {
                 wlgj.propCtrl.useProp(idx, 1, function (id) {
-                    if (player.backpack[idx].id == 1008) {
+                    if (prop.id == 1008) {
                         this.playerOpenBoxAnim(id)
                     } else {
                         UiMgr.show('MsgBoxAutoHidePanel', `使用成功`)

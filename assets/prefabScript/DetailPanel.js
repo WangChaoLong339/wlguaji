@@ -15,7 +15,7 @@ cc.Class({
     },
 
     createItem: function () {
-        for (var i = 0; i < 14; i++) {
+        for (var i = 0; i < 7; i++) {
             let item = new cc.instantiate(this.item)
             this.content.addChild(item)
         }
@@ -46,13 +46,6 @@ cc.Class({
             `暴击: ${player.property.crit}`,
             `闪避率: ${player.property.dodge_rate}%`,
             `闪避: ${player.property.dodge}`,
-            `诅咒伤害: ${player.property.cut}`,
-            `触发几率: ${player.property.cut_rate}%`,
-            `生命储备: ${player.storageHp}HP`,
-            `幸运几率: ${player.lucky_rate}%`,
-            `金币增幅: ${player.coin_rate}%`,
-            `防御增幅: ${player.def_rate}%`,
-            `攻击增幅: ${player.att_rate}%`,
         ]
         for (var i = 0; i < this.content.children.length; i++) {
             this.content.children[i].getComponent(cc.Label).string = values[i]

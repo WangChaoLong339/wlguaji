@@ -32,8 +32,8 @@ cc.Class({
         let selllNode = cc.instantiate(this.item)
         selllNode.getComponent(cc.Label).string = `回收可得:${prop.sell}`
         this.root.addChild(selllNode)
-        // 如果是装备 特殊 翅膀 诅咒
-        if (prop.type == Type.Equip || prop.type == Type.Spec || prop.type == Type.Wing || prop.type == Type.Cut) {
+        // 如果是装备 特殊
+        if (prop.type == PropType.Equip || prop.type == PropType.Spec) {
             // Lv
             let lvNode = cc.instantiate(this.item)
             lvNode.getComponent(cc.Label).string = `装备阶数:${prop.lv}阶`
@@ -50,7 +50,7 @@ cc.Class({
             }
         }
         // 如果有回调 或者不是材料类 都需要加点击事件
-        if (this.cb && prop.type != Type.Mat) {
+        if (this.cb && prop.type != PropType.Mat) {
             let bottomNode = cc.instantiate(this.bottom)
             bottomNode.PathChild('use/val', cc.Label).string = info.btnInfo ? info.btnInfo : '使用'
             bottomNode.PathChild('useAll').active = prop.count > 1
