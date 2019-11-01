@@ -30,7 +30,7 @@ cc.Class({
         this.root.addChild(detailNode)
         // sell
         let selllNode = cc.instantiate(this.item)
-        selllNode.getComponent(cc.Label).string = `回收可得:${prop.sell}`
+        selllNode.getComponent(cc.Label).string = `回收金额:${prop.sell}`
         this.root.addChild(selllNode)
         // 如果是装备 特殊
         if (prop.type == PropType.Equip || prop.type == PropType.Spec) {
