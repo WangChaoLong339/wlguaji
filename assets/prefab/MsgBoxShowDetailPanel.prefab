@@ -642,7 +642,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -170,
+      "x": -204.6,
       "y": 0
     },
     "_skewX": 0,
@@ -727,7 +727,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 114,
+      "width": 401,
       "height": 40
     },
     "_rotationX": 0,
@@ -736,7 +736,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -125,
+      "x": -170.4,
       "y": 0
     },
     "_skewX": 0,
@@ -762,7 +762,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "小心心",
+    "_N$string": "轮回★血染九天剑[盘古]",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -779,7 +779,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 125,
+    "_left": 79.6,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,

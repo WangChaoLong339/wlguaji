@@ -55,7 +55,7 @@
             window.PropList = {
                 /* 消耗类 */
                 1000: { id: 1000, name: '等级丹(初级)', detail: '1-99级使用,可提升玩家一个等级', type: PropType.Drug, sell: 5000, effect: { lv: 1 }, grade: Grade.White, count: 1 },
-                1001: { id: 1001, name: '等级丹(高级)', detail: '100-199级使用,可提升玩家一个等级', type: PropType.Drug, sell: 10000, effect: { lv: 1 }, grade: Grade.White, count: 1 },
+                1001: { id: 1001, name: '等级丹(高级)', detail: '100-199级使用,可提升玩家一个等级', type: PropType.Drug, sell: 10000, effect: { lv: 1 }, grade: Grade.Green, count: 1 },
                 1002: { id: 1002, name: '等级丹(超级)', detail: '200-299级使用,可提升玩家一个等级', type: PropType.Drug, sell: 15000, effect: { lv: 1 }, grade: Grade.Green, count: 1 },
                 1003: { id: 1003, name: '等级丹(妖级)', detail: '300-399级使用,可提升玩家一个等级', type: PropType.Drug, sell: 20000, effect: { lv: 1 }, grade: Grade.Pink, count: 1 },
                 1004: { id: 1004, name: '等级丹(魔级)', detail: '400-499级使用,可提升玩家一个等级', type: PropType.Drug, sell: 20000, effect: { lv: 1 }, grade: Grade.Red, count: 1 },

@@ -52,8 +52,9 @@ cc.Class({
         // 如果有回调 或者不是材料类 都需要加点击事件
         if (this.cb && prop.type != PropType.Mat) {
             let bottomNode = cc.instantiate(this.bottom)
+            // 不是宝箱(1008)且剩余数量大于1
+            bottomNode.PathChild('useAll').active = prop.id != 1008 && prop.count > 1
             bottomNode.PathChild('use/val', cc.Label).string = info.btnInfo ? info.btnInfo : '使用'
-            bottomNode.PathChild('useAll').active = prop.count > 1
             this.root.addChild(bottomNode)
         }
     },

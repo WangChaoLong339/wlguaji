@@ -45,6 +45,9 @@ cc.Class({
         this.currency.string = player.coin
     },
 
+    btnForging: function () {
+    },
+
     btnClose: function () {
         UiMgr.hide(this.node.name)
     },

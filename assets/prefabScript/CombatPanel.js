@@ -24,7 +24,9 @@ cc.Class({
         enemyInfo: cc.Label,
         enemyCut: cc.Node,
         enemyHurt: cc.Label,
-        rewardLabel: cc.Label,
+        layout: cc.Node,
+        item: cc.Node,
+        enemyRoot: cc.Node,
     },
 
     onLoad: function () {
@@ -42,6 +44,9 @@ cc.Class({
 
         // 初始化爆率表
         this.initRewardCfg()
+
+        // 
+        this.poolRoot = []
     },
 
     initRewardCfg: function () {
@@ -74,6 +79,8 @@ cc.Class({
     },
 
     init: function (idx) {
+        // 每次进入清空显示列表
+        this.layout.removeAllChildren()
         this.model.status = Status.ready
         this.model.idx = idx
         this.show()
@@ -85,11 +92,12 @@ cc.Class({
                 this.close.active = true
                 this.startUp.active = true
                 this.endUp.active = false
-                this.combatRoot.active = false
+                this.enemyRoot.active = false
                 break
             case Status.start:
                 this.close.active = false
                 this.startUp.active = false
+                this.enemyRoot.active = true
                 this.tipsRoot.setPosition(-this.offset, 0)
                 this.tipsRoot.stopAllActions()
                 this.tipsRoot.PathChild('Bg').color = cc.Color.GREEN
@@ -99,7 +107,6 @@ cc.Class({
                     cc.delayTime(0.5),
                     cc.moveTo(0.2, cc.p(this.offset, 0)),
                     cc.callFunc(() => {
-                        this.combatRoot.active = true
                         this.endUp.active = true
                         this.combatInit()
                     }),
@@ -107,6 +114,7 @@ cc.Class({
                 break
             case Status.end:
                 this.endUp.active = false
+                this.enemyRoot.active = false
                 this.tipsRoot.setPosition(-this.offset, 0)
                 this.tipsRoot.stopAllActions()
                 this.tipsRoot.PathChild('Bg').color = cc.Color.GRAY
@@ -118,7 +126,6 @@ cc.Class({
                     cc.callFunc(() => {
                         this.close.active = true
                         this.startUp.active = true
-                        this.combatRoot.active = false
                     }),
                 ))
                 break
@@ -262,6 +269,10 @@ cc.Class({
     },
 
     tryCombatEnd: function () {
+        // 玩家手动结束战斗
+        if (this.model.status == Status.end) {
+            return true
+        }
         // 敌人死亡
         if (this.newEnemy.property.hp <= 0) {
             this.combatRoot.stopAllActions()
@@ -280,21 +291,27 @@ cc.Class({
 
             // 战斗奖励
             let reward = this.fightReward()
-            this.rewardLabel.node.runAction(cc.sequence(
-                cc.callFunc(() => {
-                    this.rewardLabel.node.opacity = 0
-                    this.rewardLabel.string = `黄金+${reward.coin}\n`
-                    for (var i = 0; i < reward.list.length; i++) {
-                        this.rewardLabel.string += "得到 " + PropList[reward.list[i]].name + "X1\n"
-                    }
-                }),
-                cc.fadeIn(0.2),
-                cc.delayTime(0.6),
-                cc.fadeOut(0.5),
-                cc.callFunc(() => {
-                    this.rewardLabel.string = ``
-                }),
-            ))
+            // 添加金币到显示列表
+            let item = this.getItem()
+            item.getComponent(cc.Label).string = `击败"${this.newEnemy.name}",金币+${reward.coin}`
+            item.color = GradeToColor(0)
+            if (this.layout.children.length == 10) {
+                this.poolRoot.push(this.layout.children[0])
+                this.layout.removeChild(this.layout.children[0])
+            }
+            this.layout.addChild(item)
+            // 添加道具到显示列表
+            for (var i = 0; i < reward.list.length; i++) {
+                let propId = reward.list[i]
+                let item = this.getItem()
+                item.getComponent(cc.Label).string = `击败"${this.newEnemy.name}",获得[${PropList[propId].name}]`
+                item.color = GradeToColor(PropList[propId].grade)
+                if (this.layout.children.length == 10) {
+                    this.poolRoot.push(this.layout.children[0])
+                    this.layout.removeChild(this.layout.children[0])
+                }
+                this.layout.addChild(item)
+            }
             return true
         }
         // 玩家死亡
@@ -312,6 +329,14 @@ cc.Class({
         }
         // 战斗继续
         return false
+    },
+
+    getItem: function () {
+        let item = this.poolRoot.pop()
+        if (!item) {
+            item = cc.instantiate(this.item)
+        }
+        return item
     },
 
     fightReward: function () {
@@ -349,5 +374,6 @@ cc.Class({
 
     btnEndUp: function () {
         this.model.status = Status.end
+        this.show()
     },
 });
