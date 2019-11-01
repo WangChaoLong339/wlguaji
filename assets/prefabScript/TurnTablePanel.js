@@ -162,7 +162,6 @@ cc.Class({
                 cc.callFunc(() => {
                     let id = this.showList[(this.selectIdx - 1) % this.listRoot.children.length].id
                     let node = this.getFlyItem()
-                    SetSpriteFrame(`grade/${PropList[id].grade}`, node.getComponent(cc.Sprite))
                     SetSpriteFrame(`prop/${id}`, node.PathChild('icon', cc.Sprite))
                     let pos = this.listRoot.children[(this.selectIdx - 1) % this.listRoot.children.length]
                     node.setPosition(pos.x, pos.y + 15)
@@ -218,7 +217,6 @@ cc.Class({
                                         }
                                         for (var i = 0; i < temp.length; i++) {
                                             let node = this.getFlyItem()
-                                            SetSpriteFrame(`grade/${this.showList[temp[i]].grade}`, node.getComponent(cc.Sprite))
                                             SetSpriteFrame(`prop/${this.showList[temp[i]].id}`, node.PathChild('icon', cc.Sprite))
                                             let pos = this.listRoot.children[temp[i]]
                                             node.setPosition(pos.x, pos.y + 15)

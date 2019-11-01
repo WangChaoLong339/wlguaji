@@ -633,8 +633,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 60
+      "width": 54,
+      "height": 58
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -727,7 +727,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 96,
+      "width": 114,
       "height": 40
     },
     "_rotationX": 0,
@@ -755,8 +755,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 32,
-    "_fontSize": 32,
+    "_actualFontSize": 38,
+    "_fontSize": 38,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,

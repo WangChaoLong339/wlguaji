@@ -62,7 +62,7 @@
                 1005: { id: 1005, name: '等级丹(仙级)', detail: '500-599级使用,可提升玩家一个等级', type: PropType.Drug, sell: 20000, effect: { lv: 1 }, grade: Grade.Red, count: 1 },
                 1006: { id: 1006, name: '等级丹(神级)', detail: '600-699级使用,可提升玩家一个等级', type: PropType.Drug, sell: 20000, effect: { lv: 1 }, grade: Grade.Red, count: 1 },
                 1007: { id: 1007, name: '生命药水', detail: '储存500生命值', type: PropType.Drug, sell: 2000, effect: { storageHp: 500 }, grade: Grade.White, count: 1 },
-                1008: { id: 1008, name: '装备宝箱', detail: '打开可随机获得一件26阶(含)以上装备', type: PropType.Drug, sell: 2000, effect: { ramdonEquip: 1 }, grade: Grade.Red, count: 1 },
+                1008: { id: 1008, name: '装备宝箱', detail: '打开可随机获得一件26阶以上装备道具\n注:所有装备均有几率开出,剑甲概率较小', type: PropType.Drug, sell: 2000, effect: { ramdonEquip: 1 }, grade: Grade.Red, count: 1 },
                 /* 材料类 */
                 2000: { id: 2000, name: '岩石', detail: '合成等级丹(初级)的材料.', type: PropType.Mat, sell: 1000, grade: Grade.White, count: 1 },
                 2001: { id: 2001, name: '母英石', detail: '合成等级丹(高级)的材料.', type: PropType.Mat, sell: 1500, grade: Grade.White, count: 1 },
