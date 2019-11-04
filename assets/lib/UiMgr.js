@@ -22,6 +22,7 @@ cc.Class({
                 'TurnTablePanel',
                 'StageSelectPanel',
                 'CombatPanel',
+                'OpenBoxAnimaPanel',
                 'MsgBoxShowDetailPanel',
                 'MsgBoxAutoHidePanel',
                 'MsgBoxPanel',
