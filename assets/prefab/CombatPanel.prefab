@@ -2214,7 +2214,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "StartUp",
+    "_name": "StartFight",
     "_objFlags": 0,
     "_parent": {
       "__id__": 16
@@ -2480,7 +2480,7 @@
       "__id__": 1
     },
     "component": "CombatPanel",
-    "handler": "btnStartUp",
+    "handler": "btnStartFight",
     "customEventData": ""
   },
   {
@@ -2496,7 +2496,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "EndUp",
+    "_name": "StopFight",
     "_objFlags": 0,
     "_parent": {
       "__id__": 16
@@ -2762,7 +2762,7 @@
       "__id__": 1
     },
     "component": "CombatPanel",
-    "handler": "btnEndUp",
+    "handler": "btnStopFight",
     "customEventData": ""
   },
   {
@@ -3337,10 +3337,10 @@
     "close": {
       "__id__": 7
     },
-    "startUp": {
+    "startFight": {
       "__id__": 69
     },
-    "endUp": {
+    "stopFight": {
       "__id__": 78
     },
     "combatRoot": {

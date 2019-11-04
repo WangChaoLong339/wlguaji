@@ -62,7 +62,7 @@ cc.Class({
         this.showList = []
         // 添加 消耗物品
         this.showList.push({ id: `100${stage}`, value: 100, type: PropType.Drug, count: 1 })
-        this.showList.push({ id: `100${stage}`, value: 100, type: PropType.Drug, count: 6 - stage })
+        this.showList.push({ id: `100${stage}`, value: 100, type: PropType.Drug, count: 7 - stage })
         this.showList.push({ id: `1007`, value: 50, type: PropType.Drug, count: 5 * Math.pow(2, stage) })
         this.showList.push({ id: `1008`, value: 80, type: PropType.Drug, count: 1 })
         // 添加 材料物品

@@ -10,8 +10,8 @@ cc.Class({
     properties: {
         tipsRoot: cc.Node,
         close: cc.Node,
-        startUp: cc.Node,
-        endUp: cc.Node,
+        startFight: cc.Node,
+        stopFight: cc.Node,
         combatRoot: cc.Node,
         myHpFg: cc.Node,
         my: cc.Node,
@@ -83,6 +83,7 @@ cc.Class({
         this.layout.removeAllChildren()
         this.model.status = Status.ready
         this.model.idx = idx
+        this.clearEnemy()
         this.show()
     },
 
@@ -90,14 +91,13 @@ cc.Class({
         switch (this.model.status) {
             case Status.ready:
                 this.close.active = true
-                this.startUp.active = true
-                this.endUp.active = false
+                this.startFight.active = true
+                this.stopFight.active = false
                 this.enemyRoot.active = false
                 break
             case Status.start:
                 this.close.active = false
-                this.startUp.active = false
-                this.enemyRoot.active = true
+                this.startFight.active = false
                 this.tipsRoot.setPosition(-this.offset, 0)
                 this.tipsRoot.stopAllActions()
                 this.tipsRoot.PathChild('Bg').color = cc.Color.GREEN
@@ -107,13 +107,14 @@ cc.Class({
                     cc.delayTime(0.5),
                     cc.moveTo(0.2, cc.p(this.offset, 0)),
                     cc.callFunc(() => {
-                        this.endUp.active = true
+                        this.stopFight.active = true
+                        this.enemyRoot.active = true
                         this.combatInit()
                     }),
                 ))
                 break
             case Status.end:
-                this.endUp.active = false
+                this.stopFight.active = false
                 this.enemyRoot.active = false
                 this.tipsRoot.setPosition(-this.offset, 0)
                 this.tipsRoot.stopAllActions()
@@ -125,28 +126,32 @@ cc.Class({
                     cc.moveTo(0.2, cc.p(this.offset, 0)),
                     cc.callFunc(() => {
                         this.close.active = true
-                        this.startUp.active = true
+                        this.startFight.active = true
                     }),
                 ))
                 break
         }
     },
 
+    clearEnemy: function () {
+        this.enemyInfo.string = ``
+        this.enemyHp.string = ``
+        SetSpriteFrame(null, this.enemy.getComponent(cc.Sprite))
+    },
+
     combatInit: function () {
         // 生成一个敌人
         this.newEnemy = this.generateEnemy()
         this.enemyInfo.string = `Lv${this.newEnemy.lv} ${this.newEnemy.name}`
-        this.enemyMaxHp = this.newEnemy.property.hp
         this.enemyHp.string = `${this.newEnemy.property.hp}/${this.enemyMaxHp}`
+        SetSpriteFrame(`enemy/${this.newEnemy.id}`, this.enemy.getComponent(cc.Sprite))
+        this.enemyMaxHp = this.newEnemy.property.hp
 
         // 初始化血量
         this.myInfo.string = `Lv${player.lv} ${player.name}`
         this.myHpFg.width = this.enemyHpFg.width = this.defualtHpWidth
         player.property.hp = player.property.maxHp
         this.myHp.string = `${player.property.hp}/${player.property.maxHp}`
-
-        // 显示敌人icon
-        SetSpriteFrame(`enemy/${this.newEnemy.id}`, this.enemy.getComponent(cc.Sprite))
 
         // 如果是boss 需要播放警告动画
         if (this.newEnemy.id % 10 == 4) {
@@ -367,13 +372,14 @@ cc.Class({
         UiMgr.hide(this.node.name)
     },
 
-    btnStartUp: function () {
+    btnStartFight: function () {
         this.model.status = Status.start
         this.show()
     },
 
-    btnEndUp: function () {
+    btnStopFight: function () {
         this.model.status = Status.end
+        this.clearEnemy()
         this.show()
     },
 });
