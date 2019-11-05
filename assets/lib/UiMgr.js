@@ -21,6 +21,7 @@ cc.Class({
                 'CursePanel',
                 'TurnTablePanel',
                 'StageSelectPanel',
+                'EnemysPanel',
                 'BattlePanel',
                 'OpenBoxAnimaPanel',
                 'MsgBoxShowDetailPanel',

@@ -66,7 +66,7 @@ cc.Class({
         // 断言下标的合法性
         cc.assert(idx >= 0 && idx < this.model.select.length)
         // 进入战斗界面
-        UiMgr.show("BattlePanel", idx)
+        UiMgr.show("EnemysPanel", idx)
     },
 
     brnClose: function () {

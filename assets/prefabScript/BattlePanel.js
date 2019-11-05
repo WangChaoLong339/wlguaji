@@ -19,7 +19,9 @@ cc.Class({
         this.defualtHpWidth = this.enemyRoot.PathChild('HpBg').width
     },
 
-    init: function (enemy) {
+    init: function (info) {
+        let enemy = info.enemy
+        this.cb = info.cb
         if (!enemy) {
             cc.error(`enemy(${enemy}) is illegal`)
             return
@@ -153,6 +155,7 @@ cc.Class({
             if (!this.flagResult) {
                 this.flagResult = true
                 this.showResult([])
+                this.cb()
             }
             return STATUS_ENEMY_DEATH
         }
