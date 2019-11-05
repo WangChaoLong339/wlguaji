@@ -8,7 +8,6 @@ cc.Class({
         topBtn: cc.Node,
         setRoot: cc.Node,
         animForbid: cc.Node,
-        openBoxAnim: cc.Node,
     },
 
     onLoad: function () {

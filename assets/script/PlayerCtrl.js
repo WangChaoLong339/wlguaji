@@ -43,7 +43,7 @@ cc.Class({
             /* 封顶等级 */maxlv: 700,
             /* 背包列表 */backpack: [],//[Clone(PropList[1000]), Clone(PropList[1001]), Clone(PropList[5000]), Clone(PropList[5001]), Clone(PropList[5002]), Clone(PropList[5003]), Clone(PropList[5004]), Clone(PropList[5005])],
             /* 穿戴装备 */equip: { 0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {} },
-            /* 及时属性 */property: { att: 10, def: 5, hp: 100, cut: 0, crit: 0, crit_rate: 0, dodge: 0, dodge_rate: 0, },
+            /* 及时属性 */property: { att: 10, def: 5, hp: 100, speed: 100, cut: 0, crit: 0, crit_rate: 0, dodge: 0, dodge_rate: 0, },
             /* 战 斗 力 */battle: 0,
             /* 生命储备 */storageHp: 0,
         }
