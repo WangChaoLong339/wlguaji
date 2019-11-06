@@ -10,6 +10,8 @@ cc.Class({
         enemyRoot: cc.Node,
         playerRoot: cc.Node,
         result: cc.Node,
+        infoRoot: cc.Node,
+        item: cc.Node,
     },
 
     onLoad: function () {
@@ -154,7 +156,13 @@ cc.Class({
             this.node.stopAllActions()
             if (!this.flagResult) {
                 this.flagResult = true
-                this.showResult([1])
+                this.showResult([
+                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                ])
                 this.cb()
             }
             return STATUS_ENEMY_DEATH
@@ -197,6 +205,14 @@ cc.Class({
         if (reward.length > 0) {
             this.result.PathChild('Lose').active = false
             this.result.PathChild('Win').active = true
+            this.infoRoot.removeAllChildren()
+            for (var i = 0; i < reward.length; i++) {
+                let item = cc.instantiate(this.item)
+                SetSpriteFrame(`grade/${PropList[reward[i].id].grade}`, item.PathChild('Grade', cc.Sprite))
+                SetSpriteFrame(`prop/${reward[i].id}`, item.PathChild('Grade/Prop', cc.Sprite))
+                item.PathChild('Count', cc.Label).string = reward[i].count
+                this.infoRoot.addChild(item)
+            }
         } else {
             this.result.PathChild('Win').active = false
             this.result.PathChild('Lose').active = true
