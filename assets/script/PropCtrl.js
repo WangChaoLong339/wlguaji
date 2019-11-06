@@ -150,6 +150,9 @@ cc.Class({
         }
         // 增加等级
         if (prop.effect.lv) {
+            if (cb) {
+                cb()
+            }
             this.addLv(prop, count)
         }
         // 随机装备
