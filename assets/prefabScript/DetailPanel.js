@@ -10,15 +10,6 @@ cc.Class({
     onLoad: function () {
         this.detailRoot = this.node.PathChild('DetailRoot')
         this.battle = this.node.PathChild('Battle', cc.Label)
-
-        this.createItem()
-    },
-
-    createItem: function () {
-        for (var i = 0; i < 7; i++) {
-            let item = new cc.instantiate(this.item)
-            this.content.addChild(item)
-        }
     },
 
     init: function () {
@@ -43,10 +34,20 @@ cc.Class({
             `总防御: ${player.property.def}`,
             `总血量: ${player.property.hp}`,
         ]
+        if (this.content.children.length == 0) {
+            this.createItem(values.length)
+        }
         for (var i = 0; i < this.content.children.length; i++) {
             this.content.children[i].getComponent(cc.Label).string = values[i]
         }
         this.battle.string = `战斗力:${player.battle}`
+    },
+
+    createItem: function (count) {
+        for (var i = 0; i < count; i++) {
+            let item = new cc.instantiate(this.item)
+            this.content.addChild(item)
+        }
     },
 
     btnPropBg: function (event) {
