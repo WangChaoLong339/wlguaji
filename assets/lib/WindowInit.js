@@ -63,14 +63,6 @@ cc.Class({
                     return '防御'
                 case 'hp':
                     return '血量'
-                case 'crit':
-                    return '暴击'
-                case 'crit_rate':
-                    return '暴击率'
-                case 'dodge':
-                    return '闪避'
-                case 'dodge_rate':
-                    return '闪避率'
                 case 'all_rate':
                     return '全属性提升'
                 case 'def_rate':

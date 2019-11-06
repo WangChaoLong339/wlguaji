@@ -42,10 +42,6 @@ cc.Class({
             `总攻击: ${player.property.att}`,
             `总防御: ${player.property.def}`,
             `总血量: ${player.property.hp}`,
-            `暴击率: ${player.property.crit_rate}%`,
-            `暴击: ${player.property.crit}`,
-            `闪避率: ${player.property.dodge_rate}%`,
-            `闪避: ${player.property.dodge}`,
         ]
         for (var i = 0; i < this.content.children.length; i++) {
             this.content.children[i].getComponent(cc.Label).string = values[i]

@@ -154,7 +154,7 @@ cc.Class({
             this.node.stopAllActions()
             if (!this.flagResult) {
                 this.flagResult = true
-                this.showResult([])
+                this.showResult([1])
                 this.cb()
             }
             return STATUS_ENEMY_DEATH
@@ -182,11 +182,11 @@ cc.Class({
         let atterProperty = atter.property
         let deferProperty = defer.property
         // 伤害值 = (攻击者攻击 - 防御者的防御) + Math.ceil(((攻击者的暴击率 - 防御者的闪避率) * Math.abs(攻击者的暴击 -  防御者的闪避)))
-        val = (atterProperty.att - deferProperty.def) + Math.ceil((atterProperty.crit_rate - deferProperty.dodge_rate) * Math.abs(atterProperty.crit - deferProperty.dodge))
+        val = (atterProperty.att - deferProperty.def)
         // 攻击上下波动 [0.6 - 1.4]
         val = parseInt(Math.ceil(Math.random() * (val * 1.4 - val * 0.6)) + val * 0.6)
         // 最小攻击
-        val = val < 0 ? 0 : val
+        val = val < 0 ? 1 : val
         return { cut: false, val: val }
     },
 
@@ -194,7 +194,7 @@ cc.Class({
         // 最小化
         this.result.scaleX = 0
         this.result.scaleY = 0
-        if (reward.lengh > 0) {
+        if (reward.length > 0) {
             this.result.PathChild('Lose').active = false
             this.result.PathChild('Win').active = true
         } else {
@@ -203,7 +203,7 @@ cc.Class({
         }
         this.result.active = true
         this.result.runAction(
-            cc.scaleTo(0.3, 1, 1).easing(cc.easeBounceOut()),
+            cc.scaleTo(0.3, 1, 1)//.easing(cc.easeBounceOut()),
         )
     },
 
