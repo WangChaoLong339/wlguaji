@@ -125,9 +125,9 @@ cc.Class({
             btn1: function () {
                 for (var i = 0; i < player.backpack.length; i++) {
                     let prop = player.backpack[i]
-                    if (IsEmpty(prop) ||                                                    // 空格子
-                        this.oneKryFilter.indexOf(prop.id) != -1 ||                         // 需要过滤
-                        prop.grade == Grade.Red ||                                          // 红色品质道具
+                    if (IsEmpty(prop) ||                                                        // 空格子
+                        this.oneKryFilter.indexOf(prop.id) != -1 ||                             // 需要过滤
+                        prop.grade == Grade.Red ||                                              // 红色品质道具
                         (prop.type == PropType.Drug && !this.recoverLimit.drug) ||              // 消耗类
                         prop.type == PropType.Spec ||                                           // 特殊类
                         (prop.type == PropType.Mat && !this.recoverLimit.mat) ||                // 材料类
