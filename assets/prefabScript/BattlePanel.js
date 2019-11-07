@@ -9,9 +9,9 @@ cc.Class({
     properties: {
         enemyRoot: cc.Node,
         playerRoot: cc.Node,
-        result: cc.Node,
-        infoRoot: cc.Node,
-        item: cc.Node,
+        areaPos: cc.Node,
+        propItem: cc.Node,
+        close: cc.Node,
     },
 
     onLoad: function () {
@@ -19,6 +19,8 @@ cc.Class({
 
         // 默认血条宽度
         this.defualtHpWidth = this.enemyRoot.PathChild('HpBg').width
+        // 缓存propitem
+        this.propItemCache = []
     },
 
     init: function (info) {
@@ -32,13 +34,13 @@ cc.Class({
         this.runAway = false
         // 结算标识
         this.flagResult = false
+        // 隐藏close节点
+        this.close.active = false
         // 缓存敌人和玩家的信息
         this.enemy = Clone(enemy)
         this.player = Clone(player)
         // 记录一个最大血量
         this.maxHp = { enemy: enemy.property.hp, player: player.property.hp }
-        // 结算节点隐藏
-        this.result.active = false
         // 显示敌人
         this.showEnemy()
         // 显示自己
@@ -56,6 +58,8 @@ cc.Class({
         this.enemyRoot.PathChild('Info', cc.Label).string = `Lv${this.enemy.lv} ${this.enemy.name}`
         // 敌人Icon
         SetSpriteFrame(`enemy/${this.enemy.id}`, this.enemyRoot.PathChild('EnemyIcon', cc.Sprite))
+        // 设置透明度
+        this.enemyRoot.opacity = 255
     },
 
     showPlayer: function () {
@@ -69,9 +73,12 @@ cc.Class({
 
     startBattle: function () {
         this.node.runAction(cc.sequence(
-            cc.delayTime(1),
+            cc.delayTime(0.5),
             cc.callFunc(() => {
                 this.playerAtt()
+            }),
+            cc.delayTime(0.5),
+            cc.callFunc(() => {
                 this.enemyAtt()
             }),
         ))
@@ -144,7 +151,8 @@ cc.Class({
     tryBattleEnd: function () {
         // 玩家逃跑
         if (this.runAway) {
-            this.node.stopAllActions()
+            this.enemyRoot.stopAllActions()
+            this.playerRoot.stopAllActions()
             if (!this.flagResult) {
                 this.flagResult = true
                 this.showResult([])
@@ -153,23 +161,31 @@ cc.Class({
         }
         // 敌人死亡
         if (this.enemy.property.hp <= 0) {
-            this.node.stopAllActions()
-            if (!this.flagResult) {
-                this.flagResult = true
-                this.showResult([
-                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
-                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
-                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
-                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
-                    { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
-                ])
-                this.cb()
-            }
+            this.playerRoot.stopAllActions()
+            // 死亡动画
+            this.enemyRoot.runAction(cc.sequence(
+                cc.delayTime(0.2),
+                cc.fadeOut(1),
+                cc.callFunc(() => {
+                    if (!this.flagResult) {
+                        this.flagResult = true
+                        this.showResult([
+                            { id: 1009, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                            { id: 1000, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                            { id: 1001, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                            { id: 1002, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                            { id: 1003, count: GetLimiteRandom(this.enemy.lv * 100, this.enemy.lv * 200) },
+                        ])
+                        // 删除上个界面被击败的敌人
+                        this.cb()
+                    }
+                }),
+            ))
             return STATUS_ENEMY_DEATH
         }
         // 玩家死亡
         if (this.player.property.hp <= 0) {
-            this.node.stopAllActions()
+            this.enemyRoot.stopAllActions()
             if (!this.flagResult) {
                 this.flagResult = true
                 this.showResult([])
@@ -199,28 +215,36 @@ cc.Class({
     },
 
     showResult: function (reward) {
-        // 最小化
-        this.result.scaleX = 0
-        this.result.scaleY = 0
         if (reward.length > 0) {
-            this.result.PathChild('Lose').active = false
-            this.result.PathChild('Win').active = true
-            this.infoRoot.removeAllChildren()
+            let temp = []
             for (var i = 0; i < reward.length; i++) {
-                let item = cc.instantiate(this.item)
-                SetSpriteFrame(`grade/${PropList[reward[i].id].grade}`, item.PathChild('Grade', cc.Sprite))
-                SetSpriteFrame(`prop/${reward[i].id}`, item.PathChild('Grade/Prop', cc.Sprite))
-                item.PathChild('Count', cc.Label).string = reward[i].count
-                this.infoRoot.addChild(item)
+                let propItem = this.getPropItem()
+                SetSpriteFrame(`prop/${reward[i].id}`, propItem.PathChild('PropIcon', cc.Sprite))
+                propItem.PathChild('PropName', cc.Label).string = `${PropList[reward[i].id].name}`
+                propItem.PathChild('PropName').color = GradeToColor(PropList[reward[i].id].grade)
+                propItem.PathChild('PropEffect').active = PropList[reward[i].id].grade > 0
+                propItem.setPosition(GetLimiteRandom(-this.areaPos.width / 2, this.areaPos.width / 2), GetLimiteRandom(-this.areaPos.height / 2, this.areaPos.height / 2))
+                temp.push(propItem)
             }
+            temp.sort(function (a, b) { return b.y - a.y })
+            // 道具爆出来的动画
+
+            for (var i = 0; i < temp.length; i++) {
+                this.areaPos.addChild(temp[i])
+            }
+            this.close.active = true
+            this.close.PathChild('label', 'Shake').play()
         } else {
-            this.result.PathChild('Win').active = false
-            this.result.PathChild('Lose').active = true
+            UiMgr.show('MsgBoxAutoHidePanel', '您被击败,请去提升您的实力')
         }
-        this.result.active = true
-        this.result.runAction(
-            cc.scaleTo(0.3, 1, 1)//.easing(cc.easeBounceOut()),
-        )
+    },
+
+    getPropItem: function () {
+        let item = this.propItemCache.pop()
+        if (!item) {
+            item = cc.instantiate(this.propItem)
+        }
+        return item
     },
 
     btnRunAway: function () {
@@ -228,12 +252,17 @@ cc.Class({
             title: '注意',
             val: '是否选择逃跑?',
             btn1: function () {
-                this.runAway = true
+                UiMgr.hide(this.node.name)
             }.bind(this)
         })
     },
 
     btnClose: function () {
+        // 回收PropItem节点
+        for (var i = 0; i < this.areaPos.children.length; i++) {
+            this.propItemCache.push(this.areaPos.children[i])
+        }
+        this.areaPos.removeAllChildren()
         UiMgr.hide(this.node.name)
     },
 });
